@@ -1,0 +1,5 @@
+# fdbarrier
+Valuing barrier options using finite difference method in QuantLib Python 
+
+The code here demonstrates the use of [`QuantLib`](http://quantlib.org/index.shtml) in Python to value a barrier option using the finite difference approach. Prof. Vineet Virmani and I have a [working paper](http://www.iimahd.ernet.in/~jrvarma/papers/2015-03-16-Derivative-Pricing-QuantLib.pdf) which explains the valuation problem, the finite difference approach, the advantages of `QuantLib`, and the classroom use of an IPython notebook containing this code. Prof. Vineet Virmani's [blog post](https://vineetv.wordpress.com/2015/07/07/installing-quantlib-python-windows/) and my [blog post](https://jrvcomputing.wordpress.com/2015/07/03/43/) provide further information about installing [`QuantLib-Python`](http://quantlib.org/extensions.shtml) and making all this work.
+This repository contains the Python code, the corresponding IPython notebook, the output as an HTML file and a patch to one of the [SWIG](http://www.swig.org/) files `options.i` that is part of `QuantLib-Python`.
