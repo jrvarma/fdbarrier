@@ -179,6 +179,8 @@ div#notebook {
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span class="c">#!/usr/bin/env python3</span>
 <span class="c"># Requires QuantLib-SWIG with modified options.i</span>
+<span class="c"># Copyright Prof. Jayanth R. Varma (jrvarma@iimahd.ernet.in) and </span>
+<span class="c"># Prof. Vineet Virmani (vineetv@iimahd.ernet.in)</span>
 </pre></div>
 
 </div>
@@ -204,8 +206,8 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="n">barrier</span><span class="p">,</span> <span class="n">barrierType</span><span class="p">,</span> <span class="n">optionType</span><span class="p">,</span> <span class="n">rebate</span> <span class="o">=</span> <span class="p">(</span><span class="mf">80.0</span><span class="p">,</span> <span class="n">Barrier</span><span class="o">.</span><span class="n">DownOut</span><span class="p">,</span> <span class="n">Option</span><span class="o">.</span><span class="n">Call</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-<span class="n">underlying</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">divYield</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">5</span><span class="n">e</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="n">e</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
-<span class="c">## maturity is in years and must correspond to an integral number of months</span>
+<span class="n">underlying</span><span class="p">,</span> <span class="n">strike</span><span class="p">,</span> <span class="n">rf</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">maturity</span><span class="p">,</span> <span class="n">divYield</span> <span class="o">=</span> <span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">105</span><span class="p">,</span> <span class="mi">5</span><span class="n">e</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">20</span><span class="n">e</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+<span class="c">## maturity is in days and must be an integer </span>
 <span class="n">barrier_data</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="nb">eval</span><span class="p">(</span><span class="n">name</span><span class="p">))</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span>
     <span class="s">&#39;barrier&#39;</span><span class="p">,</span> <span class="s">&#39;barrierType&#39;</span><span class="p">,</span> <span class="s">&#39;optionType&#39;</span><span class="p">,</span> <span class="s">&#39;rebate&#39;</span><span class="p">,</span> <span class="s">&#39;underlying&#39;</span><span class="p">,</span> <span class="s">&#39;strike&#39;</span><span class="p">,</span> 
     <span class="s">&#39;rf&#39;</span><span class="p">,</span> <span class="s">&#39;sigma&#39;</span><span class="p">,</span> <span class="s">&#39;maturity&#39;</span><span class="p">,</span> <span class="s">&#39;divYield&#39;</span><span class="p">]</span> <span class="p">)</span>
@@ -225,15 +227,15 @@ div#notebook {
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>maturity = 1.0
-barrierType = DownOut
+<pre>barrier = 80.0
 strike = 105
-barrier = 80.0
-divYield = 0.0
 optionType = Call
-rebate = 0.0
-rf = 0.05
+divYield = 0.0
 underlying = 100
+rebate = 0.0
+maturity = 12
+barrierType = DownOut
+rf = 0.05
 sigma = 0.2
 </pre>
 </div>
@@ -261,7 +263,7 @@ sigma = 0.2
 <span class="n">maxG</span> <span class="o">=</span> <span class="n">Grids</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 <span class="n">today</span> <span class="o">=</span> <span class="n">Settings</span><span class="o">.</span><span class="n">instance</span><span class="p">()</span><span class="o">.</span><span class="n">evaluationDate</span>
-<span class="n">maturity_date</span> <span class="o">=</span> <span class="n">today</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">maturity</span> <span class="o">*</span> <span class="mi">12</span><span class="p">)</span>
+<span class="n">maturity_date</span> <span class="o">=</span> <span class="n">today</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">maturity</span><span class="p">)</span>
 <span class="n">process</span> <span class="o">=</span> <span class="n">BlackScholesMertonProcess</span><span class="p">(</span>
     <span class="n">QuoteHandle</span><span class="p">(</span><span class="n">SimpleQuote</span><span class="p">(</span><span class="n">underlying</span><span class="p">)),</span>
     <span class="n">YieldTermStructureHandle</span><span class="p">(</span><span class="n">FlatForward</span><span class="p">(</span><span class="n">today</span><span class="p">,</span> <span class="n">divYield</span><span class="p">,</span> <span class="n">Thirty360</span><span class="p">())),</span>
@@ -726,19 +728,6 @@ J5xLEARBUHHCuQRBEAQVJ5xLEARBUHHCuQRBEAQV51/NgRT6Hhns9wAAAABJRU5ErkJggg==
 
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre> 
-</pre></div>
-
-</div>
 </div>
 </div>
 
