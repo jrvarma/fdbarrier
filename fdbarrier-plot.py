@@ -9,8 +9,8 @@ from QuantLib import *
 import matplotlib.pyplot as plt
 
 barrier, barrierType, optionType, rebate = (80.0, Barrier.DownOut, Option.Call, 0.0)
-underlying, strike, rf, sigma, maturity, divYield = (100, 105, 5e-2, 20e-2, 1.0, 0.0)
-## maturity is in years and must correspond to an integral number of months
+underlying, strike, rf, sigma, maturity, divYield = (100, 105, 5e-2, 20e-2, 12, 0.0)
+## maturity is in days and must be an integer 
 barrier_data = dict( (name,eval(name)) for name in [
     'barrier', 'barrierType', 'optionType', 'rebate', 'underlying', 'strike', 
     'rf', 'sigma', 'maturity', 'divYield'] )
@@ -27,7 +27,7 @@ Grids = (5, 10, 25, 50, 100, 1000, 5000)
 maxG = Grids[-1]
 
 today = Settings.instance().evaluationDate
-maturity_date = today + int(maturity * 12)
+maturity_date = today + int(maturity)
 process = BlackScholesMertonProcess(
     QuoteHandle(SimpleQuote(underlying)),
     YieldTermStructureHandle(FlatForward(today, divYield, Thirty360())),
