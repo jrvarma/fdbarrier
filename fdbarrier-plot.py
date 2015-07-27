@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # Requires QuantLib-SWIG with modified options.i
+# Copyright Prof. Jayanth R. Varma (jrvarma@iimahd.ernet.in) and 
+# Prof. Vineet Virmani (vineetv@iimahd.ernet.in)
 
 # <headingcell level=1>
 # Data for barrier option
